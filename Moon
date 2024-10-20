@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosh Sahifa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Bizning Moliya Platformamiz</h1>
+    <nav>
+        <ul>
+            <li><a href="deposit.html">Depozit Qoyish</a></li>
+            <li><a href="withdraw.html">Chiqim Qilish</a></li>
+            <li><a href="receipt.html">Tolov Chekini Joylash</a></li>
+        </ul>
+    </nav>
+    <h2>Qanday Depozit Turini Tanlash</h2>
+    <p>Bizda turli depozit turlari mavjud. Iltimos, yuqoridagi havolalardan foydalaning.</p>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depozit Tanlash</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Depozit Tanlash</h1>
+    <form id="depositForm">
+        <label for="depositAmount">Depozit miqdori:</label>
+        <select id="depositAmount" name="depositAmount" required>
+            <option value="">Tanlang</option>
+            <option value="100000">100 000 so'm</option>
+            <option value="500000">500 000 so'm</option>
+            <option value="1000000">1 000 000 so'm</option>
+            <option value="2000000">2 000 000 so'm</option>
+            <option value="3000000">3 000 000 so'm</option>
+        </select>
+        <button type="submit">Tanlash</button>
+    </form>
+
+    <h2 id="taskHeader" style="display:none;">Kunlik Vazifalar:</h2>
+    <div id="taskList" style="display:none;"></div>
+
+    <a href="index.html">Bosh sahifaga qaytish</a>
+    <script src="script.js" defer></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiqim Qilish</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Chiqim Qilish</h1>
+    <form id="withdrawForm">
+        <label for="withdrawAmount">Chiqim Summasi:</label>
+        <input type="number" id="withdrawAmount" name="withdrawAmount" required>
+
+        <label for="accountNumber">Hisob Raqami:</label>
+        <input type="text" id="accountNumber" name="accountNumber" required placeholder="Misol: 9860 2466 0286 8639">
+
+        <button type="submit">Chiqim Qilish</button>
+    </form>
+    <div id="confirmationMessage" style="display:none;"></div>
+    <a href="index.html">Bosh sahifaga qaytish</a>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tolov Chekini Joylash</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Tolov Chekini Joylash</h1>
+    <form id="receiptForm">
+        <label for="amount">Miqdor:</label>
+        <input type="number" id="amount" name="amount" required>
+        
+        <label for="receiptImage">Chek rasm yuklash:</label>
+        <input type="file" id="receiptImage" name="receiptImage" accept="image/*" required>
+
+        <button type="submit">Chekni Joylash</button>
+    </form>
+    <h2>Yuklangan Cheklar:</h2>
+    <div id="receiptGallery"></div>
+    <a href="index.html">Bosh sahifaga qaytish</a>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+// Depozit tanlash sahifasida
+document.getElementById('depositForm')?.addEventListener('submit', function(event) {
+    event.preventDefault(); // Formani yuborishdan saqlanish
+    
+    const depositAmount = document.getElementById('depositAmount').value; // Tanlangan depozit
+    const taskHeader = document.getElementById('taskHeader');
+    const taskList = document.getElementById('taskList');
+
+    let tasks = '';
+
+    // Depozit miqdoriga qarab vazifalar sonini belgilang
+    switch (depositAmount) {
+        case '100000':
+            tasks = '7 ta vazifa bajarishingiz kerak.';
+            break;
+        case '500000':
+            tasks = '10 ta vazifa bajarishingiz kerak.';
+            break;
+        case '1000000':
+            tasks = '15 ta vazifa bajarishingiz kerak.';
+            break;
+        case '2000000':
+            tasks = '20 ta vazifa bajarishingiz kerak.';
+            break;
+        case '3000000':
+            tasks = '25 ta vazifa bajarishingiz kerak.';
+            break;
+        default:
+            tasks = 'Tanlov qilinmadi.';
+    }
+
+    // Vazifalarni ko'rsatish
+    taskHeader.style.display = 'block';
+    taskList.style.display = 'block';
+    taskList.innerHTML = tasks;
+});
+
+// Chiqim qilish sahifasida
+document.getElementById('withdrawForm')?.addEventListener('submit', function(event) {
+    event.preventDefault(); // Formani yuborishdan saqlanish
+    
+    const withdrawAmount = document.getElementById('withdrawAmount').value; // Chiqim summasi
+    const accountNumber = document.getElementById('accountNumber').value; // Hisob raqami
+
+    // Foydalanuvchiga chiqim jarayoni haqida ma'lumot berish
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    confirmationMessage.style.display = 'block';
+    confirmationMessage.innerHTML = `Siz ${withdrawAmount} so'mni ${accountNumber} hisob raqamiga chiqarishni so'rov qildingiz.`;
+});
+
+// Tolov chekini joylash
+document.getElementById('receiptForm')?.addEventListener('submit', function(event) {
+    event.preventDefault(); // Formani yuborishdan saqlanish
+    
+    const amount = document.getElementById('amount').value; // Kiritilgan miqdor
+    const receiptImage = document.getElementById('receiptImage').files[0]; // Yuklangan rasm
+
+    if (receiptImage) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // Rasmni ko'rsatish
+            const gallery = document.getElementById('receiptGallery');
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <p>Miqdor: ${amount} so'm</p>
+                <img src="${e.target.result}"
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
